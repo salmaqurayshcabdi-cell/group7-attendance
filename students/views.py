@@ -1,7 +1,10 @@
+import csv
+from datetime import datetime
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Q
 from django.utils import timezone
-from datetime import datetime
+from django.http import HttpResponse
 
 from .models import Student, Attendance
 from .forms import StudentForm
@@ -155,3 +158,45 @@ def reports(request):
     }
 
     return render(request, 'reports.html', context)
+
+
+# EXPORT ATTENDANCE REPORT TO CSV
+def export_attendance(request):
+    selected_date = request.GET.get('date', '')
+
+    attendance_records = Attendance.objects.select_related(
+        'student'
+    ).all().order_by('-date')
+
+    if selected_date:
+        try:
+            datetime.strptime(selected_date, '%Y-%m-%d')
+            attendance_records = attendance_records.filter(
+                date=selected_date
+            )
+        except ValueError:
+            selected_date = ''
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = (
+        'attachment; filename="attendance_report.csv"'
+    )
+
+    writer = csv.writer(response)
+
+    writer.writerow([
+        'Date',
+        'Student ID',
+        'Full Name',
+        'Status'
+    ])
+
+    for record in attendance_records:
+        writer.writerow([
+            record.date,
+            record.student.student_id,
+            record.student.full_name,
+            record.status
+        ])
+
+    return response

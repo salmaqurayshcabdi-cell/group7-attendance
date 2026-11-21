@@ -89,41 +89,59 @@
     </div>
 
     <div class="table-box">
+
         <h4 class="mb-4">Attendance Records</h4>
+
         <!-- Attendance Percentage -->
-<div class="alert alert-primary mb-4">
-    <h5>Attendance Percentage</h5>
-    <h2>{{ attendance_percentage }}%</h2>
-    <p class="mb-0">Based on attendance records</p>
-</div>
+        <div class="alert alert-primary mb-4">
+            <h5>Attendance Percentage</h5>
+            <h2>{{ attendance_percentage }}%</h2>
+            <p class="mb-0">Based on attendance records</p>
+        </div>
 
-<!-- Date Filter -->
-<form method="GET" class="row g-3 mb-4">
-    <div class="col-md-5">
-        <label class="form-label">Filter by Date</label>
-        <input
-            type="date"
-            name="date"
-            class="form-control"
-            value="{{ selected_date }}"
-        >
-    </div>
+        <!-- Date Filter -->
+        <form method="GET" class="row g-3 mb-4">
 
-    <div class="col-md-3 d-flex align-items-end">
-        <button type="submit" class="btn btn-primary w-100">
-            Filter Reports
-        </button>
-    </div>
+            <div class="col-md-5">
+                <label class="form-label">Filter by Date</label>
 
-    <div class="col-md-3 d-flex align-items-end">
-        <a href="{% url 'reports' %}" class="btn btn-secondary w-100">
-            Clear Filter
-        </a>
-    </div>
-</form>
+                <input
+                    type="date"
+                    name="date"
+                    class="form-control"
+                    value="{{ selected_date }}"
+                >
+            </div>
 
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    Filter Reports
+                </button>
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <a href="{% url 'reports' %}" class="btn btn-secondary w-100">
+                    Clear Filter
+                </a>
+            </div>
+
+        </form>
+
+        <!-- EXPORT CSV BUTTON -->
+        <div class="mb-4">
+            <a
+                href="{% url 'export_attendance' %}{% if selected_date %}?date={{ selected_date|urlencode }}{% endif %}"
+                class="btn btn-success"
+            >
+                Download CSV Report
+            </a>
+        </div>
+
+        <!-- Attendance Table -->
         <div class="table-responsive">
+
             <table class="table table-hover align-middle">
+
                 <thead class="table-dark">
                     <tr>
                         <th>Student Name</th>
@@ -131,39 +149,4 @@
                         <th>Date</th>
                         <th>Status</th>
                     </tr>
-                </thead>
-
-                <tbody>
-                    {% for record in attendance_records %}
-                    <tr>
-                        <td>{{ record.student.full_name }}</td>
-                        <td>{{ record.student.student_id }}</td>
-                        <td>{{ record.date }}</td>
-                        <td>
-                            {% if record.status == 'Present' %}
-                                <span class="badge bg-success">Present</span>
-                            {% else %}
-                                <span class="badge bg-danger">Absent</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            No attendance records found.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <a href="{% url 'student_list' %}" class="btn btn-primary">
-            Back to Students
-        </a>
-    </div>
-
-</div>
-
-</body>
-</html>
+                </th

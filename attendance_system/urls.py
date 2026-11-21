@@ -20,6 +20,8 @@ urlpatterns = [
     path('attendance/', views.attendance_list, name='attendance_list'),
 
     path('reports/', views.reports, name='reports'),
+
+    path('export-attendance/', views.export_attendance, name='export_attendance'),
 ]
 
 if settings.DEBUG:
