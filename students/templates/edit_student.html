@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +6,28 @@
 </head>
 <body>
 
+    <!-- Edit Student Page -->
+    <!-- Modified and edited by Mustafe -->
+
     <h2>Update Student Information</h2>
 
+    <!-- Student update form edited by Mustafe -->
     <form method="POST">
+
         {% csrf_token %}
+
+        <!-- Display student information fields -->
         {{ form.as_p }}
 
+        <!-- Submit updated student information -->
         <button type="submit">Update Student</button>
+
     </form>
 
+    <!-- Back to student list link -->
     <a href="{% url 'student_list' %}">Back to Students</a>
+
+    <!-- Mustafe participated in editing the Edit Student page -->
 
 </body>
 </html>
