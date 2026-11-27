@@ -1,33 +1,135 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Edit Student</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student | Attendance System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            padding: 40px 15px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #263b5e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        form p {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #2563eb;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .errorlist {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
 
     <!-- Edit Student Page -->
     <!-- Modified and edited by Mustafe -->
 
-    <h2>Update Student Information</h2>
+    <div class="container">
 
-    <!-- Student update form edited by Mustafe -->
-    <form method="POST">
+        <h2>Update Student Information</h2>
 
-        {% csrf_token %}
+        <p class="description">
+            Edit student details and save the updated information.
+        </p>
 
-        <!-- Display student information fields -->
-        {{ form.as_p }}
+        <form method="POST">
 
-        <!-- Submit updated student information -->
-        <button type="submit">Update Student</button>
+            {% csrf_token %}
 
-    </form>
+            {{ form.non_field_errors }}
 
-    <!-- Back to student list link -->
-    <a href="{% url 'student_list' %}">Back to Students</a>
+            <!-- Student information fields -->
+            {{ form.as_p }}
 
-    <!-- Mustafe participated in editing the Edit Student page -->
+            <!-- Update button -->
+            <button type="submit">
+                Update Student
+            </button>
+
+        </form>
+
+        <!-- Back to student list -->
+        <a href="{% url 'student_list' %}" class="back-link">
+            ← Back to Students
+        </a>
+
+    </div>
+
+    <!-- Edited by Mustafe Abdisamad -->
 
 </body>
 </html>
